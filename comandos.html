@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robluxo - Comandos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:linear-gradient(135deg,#0a0a18,#141430,#0a0a18);
+  color:#fff;font-family:'Segoe UI',system-ui,sans-serif;
+  min-height:100vh;padding:30px 20px;
+}
+.container{max-width:700px;margin:0 auto}
+.header{
+  text-align:center;margin-bottom:40px;
+  padding:30px 20px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+.logo{
+  font-size:48px;font-weight:900;
+  background:linear-gradient(135deg,#2a9a5a,#4aee8a,#7cf);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.sub{color:rgba(255,255,255,0.4);font-size:14px;margin-top:6px;letter-spacing:2px;text-transform:uppercase}
+.desc{color:rgba(255,255,255,0.5);font-size:13px;margin-top:12px}
+
+.section{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;
+  padding:20px 24px;margin-bottom:16px;backdrop-filter:blur(8px);
+}
+.section-title{
+  font-size:16px;font-weight:700;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-title .icon{font-size:22px}
+
+.cmd-grid{display:flex;flex-wrap:wrap;gap:8px}
+.cmd{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:20px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.8);font-size:13px;font-weight:500;
+  transition:all 0.2s;cursor:pointer;
+}
+.cmd:hover{background:rgba(100,200,255,0.1);border-color:rgba(100,200,255,0.2);color:#fff;transform:translateY(-1px)}
+.cmd:active{transform:scale(0.95)}
+.cmd .prefix{color:rgba(100,200,255,0.6);font-weight:700}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2a9a5a;color:#fff;padding:10px 24px;border-radius:30px;font-size:14px;z-index:999;opacity:0;transition:opacity 0.3s}
+.toast.show{opacity:1}
+
+.footer{text-align:center;color:rgba(255,255,255,0.2);font-size:11px;margin-top:30px;padding:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div class="logo">ROBLUXO</div>
+  <div class="sub">Comandos da Live</div>
+   <div class="desc">Escreva no chat da live para controlar o personagem · <b style="color:#7cf">Clique para copiar</b></div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🌿</span> Natureza</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>beber</span>
+    <span class="cmd"><span class="prefix">!</span>beber agua</span>
+    <span class="cmd"><span class="prefix">!</span>cortar</span>
+    <span class="cmd"><span class="prefix">!</span>cortar arvore</span>
+    <span class="cmd"><span class="prefix">!</span>dormir</span>
+    <span class="cmd"><span class="prefix">!</span>descansar</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🐾</span> Caça</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>cacar</span>
+    <span class="cmd"><span class="prefix">!</span>cacar galinha</span>
+    <span class="cmd"><span class="prefix">!</span>cacar rato</span>
+    <span class="cmd"><span class="prefix">!</span>cacar porco</span>
+    <span class="cmd"><span class="prefix">!</span>cacar coelho</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🏕️</span> Sobrevivência</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>fogueira</span>
+    <span class="cmd"><span class="prefix">!</span>fazer fogueira</span>
+    <span class="cmd"><span class="prefix">!</span>tocha</span>
+    <span class="cmd"><span class="prefix">!</span>tocha no chao</span>
+    <span class="cmd"><span class="prefix">!</span>remover fogueira</span>
+    <span class="cmd"><span class="prefix">!</span>remover tocha</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">⚡</span> Ações</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>dancar</span>
+    <span class="cmd"><span class="prefix">!</span>pular</span>
+    <span class="cmd"><span class="prefix">!</span>parar</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">📷</span> Câmera</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>seguir</span>
+    <span class="cmd"><span class="prefix">!</span>destravar</span>
+    <span class="cmd"><span class="prefix">!</span>zoom</span>
+    <span class="cmd"><span class="prefix">!</span>reset camera</span>
+    <span class="cmd"><span class="prefix">!</span>grade</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🎒</span> Outros</div>
+  <div class="cmd-grid">
+    <span class="cmd"><span class="prefix">!</span>inventario</span>
+    <span class="cmd"><span class="prefix">!</span>personalizar</span>
+    <span class="cmd"><span class="prefix">!</span>comandos</span>
+    <span class="cmd"><span class="prefix">!</span>robluxo</span>
+  </div>
+</div>
+
+ <div class="footer">Comandos sempre atualizados · Basta digitar no chat da Twitch</div>
+ <div class="toast" id="toast">Comando copiado!</div>
+
+<script>
+document.querySelectorAll('.cmd').forEach(cmd => {
+  cmd.addEventListener('click', () => {
+    const text = cmd.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('toast');
+      toast.textContent = 'Copiado: ' + text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  });
+});
+</script>
+</div>
+</body>
+</html>
