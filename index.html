@@ -7,11 +7,11 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:linear-gradient(160deg,#050510,#0d0d28,#0a0a18);color:#fff;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
-.container{max-width:800px;margin:0 auto;padding:40px 20px}
-
+.container{max-width:820px;margin:0 auto;padding:40px 20px}
 .header{text-align:center;margin-bottom:30px}
 .logo{font-size:56px;font-weight:900;background:linear-gradient(135deg,#2a9a5a 0%,#4aee8a 40%,#7cf 70%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px}
 .sub{color:rgba(255,255,255,0.3);font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-top:4px}
+.tip{color:rgba(255,255,255,0.25);font-size:11px;margin-top:8px}
 
 .search-wrap{position:relative;margin-bottom:30px}
 .search-wrap input{width:100%;padding:16px 20px 16px 52px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:16px;font-family:inherit;backdrop-filter:blur(10px);transition:all 0.3s}
@@ -36,22 +36,24 @@ body{background:linear-gradient(160deg,#050510,#0d0d28,#0a0a18);color:#fff;font-
 .section-icon.purple{background:rgba(167,139,250,0.1);color:#a78bfa}
 .section-icon.pink{background:rgba(255,100,150,0.1);color:#ff6496}
 .section-icon.yellow{background:rgba(255,215,0,0.1);color:#ffd700}
+.section-icon.brown{background:rgba(139,90,43,0.15);color:#c89460}
 .section-title{font-size:15px;font-weight:700;color:#fff}
 .section-count{font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto}
 
 .cmd-grid{display:flex;flex-wrap:wrap;gap:8px}
-.cmd-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
-.cmd-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(100,200,255,0.1),rgba(167,139,250,0.05));opacity:0;transition:opacity 0.2s}
-.cmd-btn:hover::before{opacity:1}
-.cmd-btn:hover{border-color:rgba(100,200,255,0.2);color:#fff;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.cmd-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.2s;position:relative;overflow:visible}
+.cmd-btn:hover{border-color:rgba(100,200,255,0.2);color:#fff;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:10}
 .cmd-btn:active{transform:scale(0.96)}
-.cmd-btn .prefix{color:rgba(100,200,255,0.7);font-weight:700;font-size:12px;position:relative;z-index:1}
+.cmd-btn .prefix{color:rgba(100,200,255,0.7);font-weight:700;font-size:12px}
 .cmd-btn .text{position:relative;z-index:1}
 .cmd-btn.copied{background:rgba(74,238,138,0.15)!important;border-color:#4aee8a!important;color:#4aee8a!important}
 .cmd-btn.copied .prefix{color:#4aee8a!important}
-.cmd-btn.highlight{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.08);animation:glow 1.5s ease infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.1)}50%{box-shadow:0 0 20px rgba(255,215,0,0.2)}}
 .cmd-btn.hidden{display:none}
+
+/* Tooltip */
+.cmd-btn[data-tip]{position:relative}
+.cmd-btn[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);white-space:nowrap;padding:8px 14px;border-radius:10px;background:rgba(10,10,30,0.97);border:1px solid rgba(100,200,255,0.2);color:#fff;font-size:12px;font-weight:400;pointer-events:none;z-index:999;box-shadow:0 8px 30px rgba(0,0,0,0.5);backdrop-filter:blur(12px)}
+.cmd-btn[data-tip]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(100,200,255,0.2);z-index:999}
 
 .no-results{display:none;text-align:center;padding:40px;color:rgba(255,255,255,0.2);font-size:18px}
 .no-results.show{display:block}
@@ -62,10 +64,7 @@ body{background:linear-gradient(160deg,#050510,#0d0d28,#0a0a18);color:#fff;font-
 .footer a:hover{color:#7cf}
 
 @media(max-width:600px){
-  .logo{font-size:36px}
-  .container{padding:20px 12px}
-  .section{padding:16px}
-  .cmd-btn{padding:7px 12px;font-size:12px}
+  .logo{font-size:36px}.container{padding:20px 12px}.section{padding:16px}.cmd-btn{padding:7px 12px;font-size:12px}
 }
 </style>
 </head>
@@ -74,206 +73,145 @@ body{background:linear-gradient(160deg,#050510,#0d0d28,#0a0a18);color:#fff;font-
 <div class="header">
   <div class="logo">ROBLUXO</div>
   <div class="sub">Comandos da Live</div>
+  <div class="tip">Passe o mouse sobre qualquer comando para ver o que ele faz</div>
 </div>
 
 <div class="search-wrap">
   <span class="search-icon">🔍</span>
-  <input type="text" id="searchInput" placeholder="Buscar comandos... ex: beber, caçar, fogueira..." autocomplete="off">
+  <input type="text" id="searchInput" placeholder="Buscar comandos..." autocomplete="off">
   <button class="clear-btn" id="clearBtn">✕</button>
 </div>
 
-<div class="stats-bar">
-  <div class="stat">Total: <b id="totalCmd">0</b> comandos</div>
-  <div class="stat">Encontrados: <b id="foundCmd">0</b></div>
-</div>
-
-<div class="no-results" id="noResults">
-  <span class="big">🔍</span>
-  Nenhum comando encontrado
-</div>
+<div class="stats-bar"><div class="stat">Total: <b id="totalCmd">0</b> comandos</div><div class="stat">Encontrados: <b id="foundCmd">0</b></div></div>
+<div class="no-results" id="noResults"><span class="big">🔍</span>Nenhum comando encontrado</div>
 
 <div class="sections" id="sections">
 
 <div class="section" data-category="natureza">
-  <div class="section-header">
-    <div class="section-icon green">🌿</div>
-    <div class="section-title">Natureza</div>
-    <div class="section-count" data-count="6"></div>
-  </div>
+  <div class="section-header"><div class="section-icon green">🌿</div><div class="section-title">Natureza</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!beber agua"><span class="prefix">!</span><span class="text">beber agua</span></button>
-    <button class="cmd-btn" data-cmd="!beber"><span class="prefix">!</span><span class="text">beber</span></button>
-    <button class="cmd-btn" data-cmd="!cortar arvore"><span class="prefix">!</span><span class="text">cortar arvore</span></button>
-    <button class="cmd-btn" data-cmd="!cortar"><span class="prefix">!</span><span class="text">cortar</span></button>
-    <button class="cmd-btn" data-cmd="!dormir"><span class="prefix">!</span><span class="text">dormir</span></button>
-    <button class="cmd-btn" data-cmd="!descansar"><span class="prefix">!</span><span class="text">descansar</span></button>
+    <button class="cmd-btn" data-cmd="!beber agua" data-tip="Vai até o rio e bebe água — enche a sede">!beber agua</button>
+    <button class="cmd-btn" data-cmd="!beber" data-tip="Atalho: vai beber água">!beber</button>
+    <button class="cmd-btn" data-cmd="!cortar arvore" data-tip="Corta a árvore mais próxima — ganha madeira">!cortar arvore</button>
+    <button class="cmd-btn" data-cmd="!cortar" data-tip="Atalho: corta árvore">!cortar</button>
+    <button class="cmd-btn" data-cmd="!dormir" data-tip="Deita e recupera energia">!dormir</button>
+    <button class="cmd-btn" data-cmd="!descansar" data-tip="Atalho: vai dormir">!descansar</button>
   </div>
 </div>
 
 <div class="section" data-category="caca">
-  <div class="section-header">
-    <div class="section-icon orange">🐾</div>
-    <div class="section-title">Caça</div>
-    <div class="section-count" data-count="5"></div>
-  </div>
+  <div class="section-header"><div class="section-icon orange">🐾</div><div class="section-title">Caça</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!cacar"><span class="prefix">!</span><span class="text">cacar</span></button>
-    <button class="cmd-btn" data-cmd="!cacar galinha"><span class="prefix">!</span><span class="text">cacar galinha</span></button>
-    <button class="cmd-btn" data-cmd="!cacar rato"><span class="prefix">!</span><span class="text">cacar rato</span></button>
-    <button class="cmd-btn" data-cmd="!cacar porco"><span class="prefix">!</span><span class="text">cacar porco</span></button>
-    <button class="cmd-btn" data-cmd="!cacar coelho"><span class="prefix">!</span><span class="text">cacar coelho</span></button>
+    <button class="cmd-btn" data-cmd="!cacar" data-tip="Caça o animal mais próximo — ganha carne">!cacar</button>
+    <button class="cmd-btn" data-cmd="!cacar galinha" data-tip="Caça a galinha mais próxima">!cacar galinha</button>
+    <button class="cmd-btn" data-cmd="!cacar rato" data-tip="Caça o rato mais próximo">!cacar rato</button>
+    <button class="cmd-btn" data-cmd="!cacar porco" data-tip="Caça o porco mais próximo">!cacar porco</button>
+    <button class="cmd-btn" data-cmd="!cacar coelho" data-tip="Caça o coelho mais próximo">!cacar coelho</button>
   </div>
 </div>
 
 <div class="section" data-category="sobrevivencia">
-  <div class="section-header">
-    <div class="section-icon blue">🏕️</div>
-    <div class="section-title">Sobrevivência</div>
-    <div class="section-count" data-count="6"></div>
-  </div>
+  <div class="section-header"><div class="section-icon blue">🏕️</div><div class="section-title">Sobrevivência</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!fogueira"><span class="prefix">!</span><span class="text">fogueira</span></button>
-    <button class="cmd-btn" data-cmd="!fazer fogueira"><span class="prefix">!</span><span class="text">fazer fogueira</span></button>
-    <button class="cmd-btn" data-cmd="!tocha"><span class="prefix">!</span><span class="text">tocha</span></button>
-    <button class="cmd-btn" data-cmd="!tocha no chao"><span class="prefix">!</span><span class="text">tocha no chao</span></button>
-    <button class="cmd-btn" data-cmd="!remover fogueira"><span class="prefix">!</span><span class="text">remover fogueira</span></button>
-    <button class="cmd-btn" data-cmd="!remover tocha"><span class="prefix">!</span><span class="text">remover tocha</span></button>
+    <button class="cmd-btn" data-cmd="!fogueira" data-tip="Constrói fogueira no chão — ilumina a área">!fogueira</button>
+    <button class="cmd-btn" data-cmd="!tocha" data-tip="Equipa uma tocha na mão — afasta monstros">!tocha</button>
+    <button class="cmd-btn" data-cmd="!tocha no chao" data-tip="Crava a tocha no chão — ilumina o local">!tocha no chao</button>
+    <button class="cmd-btn" data-cmd="!remover fogueira" data-tip="Vai até a fogueira mais próxima e desmonta — recupera madeira">!remover fogueira</button>
+    <button class="cmd-btn" data-cmd="!remover tocha" data-tip="Vai até a tocha mais próxima e recolhe — recupera madeira">!remover tocha</button>
   </div>
 </div>
 
 <div class="section" data-category="construcao">
-  <div class="section-header">
-    <div class="section-icon green">🏗️</div>
-    <div class="section-title">Construção</div>
-    <div class="section-count" data-count="10"></div>
-  </div>
+  <div class="section-header"><div class="section-icon brown">🏗️</div><div class="section-title">Construção</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!construir casa"><span class="prefix">!</span><span class="text">construir casa</span></button>
-    <button class="cmd-btn" data-cmd="!construir deposito"><span class="prefix">!</span><span class="text">construir deposito</span></button>
-    <button class="cmd-btn" data-cmd="!construir cama"><span class="prefix">!</span><span class="text">construir cama</span></button>
-    <button class="cmd-btn" data-cmd="!construir banco"><span class="prefix">!</span><span class="text">construir banco</span></button>
-    <button class="cmd-btn" data-cmd="!construir mesa"><span class="prefix">!</span><span class="text">construir mesa</span></button>
-    <button class="cmd-btn" data-cmd="!construir cerca"><span class="prefix">!</span><span class="text">construir cerca</span></button>
-    <button class="cmd-btn" data-cmd="!construir galinheiro"><span class="prefix">!</span><span class="text">construir galinheiro</span></button>
-    <button class="cmd-btn" data-cmd="!construir espantalho"><span class="prefix">!</span><span class="text">construir espantalho</span></button>
-    <button class="cmd-btn" data-cmd="!expandir casa"><span class="prefix">!</span><span class="text">expandir casa</span></button>
-    <button class="cmd-btn" data-cmd="!plantar arvore"><span class="prefix">!</span><span class="text">plantar arvore</span></button>
+    <button class="cmd-btn" data-cmd="!construir casa" data-tip="Cria casa 2x2 — 50 madeiras — permite dormir dentro">!construir casa</button>
+    <button class="cmd-btn" data-cmd="!construir deposito" data-tip="Depósito 2x2 — 40 madeiras — aumenta capacidade do inventário">!construir deposito</button>
+    <button class="cmd-btn" data-cmd="!construir cama" data-tip="Cama dentro da casa — 15 madeiras — recupera energia mais rápido">!construir cama</button>
+    <button class="cmd-btn" data-cmd="!construir banco" data-tip="Banco 1x1 — 10 madeiras — decora e o Robluxo senta">!construir banco</button>
+    <button class="cmd-btn" data-cmd="!construir mesa" data-tip="Mesa 1x1 — 10 madeiras — decoração interna">!construir mesa</button>
+    <button class="cmd-btn" data-cmd="!construir cerca" data-tip="Cerca 1x1 — 5 madeiras — cria barreira">!construir cerca</button>
+    <button class="cmd-btn" data-cmd="!construir galinheiro" data-tip="Galinheiro 2x2 — 35 madeiras — gera galinhas">!construir galinheiro</button>
+    <button class="cmd-btn" data-cmd="!construir espantalho" data-tip="Espantalho 1x1 — 15 madeiras — decoração">!construir espantalho</button>
+    <button class="cmd-btn" data-cmd="!expandir casa" data-tip="Expande a casa — 30 madeiras — de 2x2 para 3x2">!expandir casa</button>
+    <button class="cmd-btn" data-cmd="!plantar arvore" data-tip="Planta árvore — 5 madeiras — gera madeira futura">!plantar arvore</button>
   </div>
 </div>
 
 <div class="section" data-category="acoes">
-  <div class="section-header">
-    <div class="section-icon purple">⚡</div>
-    <div class="section-title">Ações</div>
-    <div class="section-count" data-count="5"></div>
-  </div>
+  <div class="section-header"><div class="section-icon purple">⚡</div><div class="section-title">Ações</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!dancar"><span class="prefix">!</span><span class="text">dancar</span></button>
-    <button class="cmd-btn" data-cmd="!pular"><span class="prefix">!</span><span class="text">pular</span></button>
-    <button class="cmd-btn" data-cmd="!parar"><span class="prefix">!</span><span class="text">parar</span></button>
-    <button class="cmd-btn" data-cmd="!mudar cor"><span class="prefix">!</span><span class="text">mudar cor</span></button>
-    <button class="cmd-btn" data-cmd="!trocar cor"><span class="prefix">!</span><span class="text">trocar cor</span></button>
+    <button class="cmd-btn" data-cmd="!dancar" data-tip="Robluxo dança por 2 segundos">!dancar</button>
+    <button class="cmd-btn" data-cmd="!pular" data-tip="Robluxo dá um pulo">!pular</button>
+    <button class="cmd-btn" data-cmd="!parar" data-tip="Para todas as ações imediatamente">!parar</button>
+    <button class="cmd-btn" data-cmd="!mudar cor" data-tip="Troca as cores do Robluxo aleatoriamente">!mudar cor</button>
   </div>
 </div>
 
-<div class="section" data-category="camera">
-  <div class="section-header">
-    <div class="section-icon pink">📷</div>
-    <div class="section-title">Câmera</div>
-    <div class="section-count" data-count="6"></div>
-  </div>
+<div class="section" data-category="movimento">
+  <div class="section-header"><div class="section-icon pink">📷</div><div class="section-title">Câmera & Movimento</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!seguir"><span class="prefix">!</span><span class="text">seguir</span></button>
-    <button class="cmd-btn" data-cmd="!destravar"><span class="prefix">!</span><span class="text">destravar</span></button>
-    <button class="cmd-btn" data-cmd="!zoom"><span class="prefix">!</span><span class="text">zoom</span></button>
-    <button class="cmd-btn" data-cmd="!reset camera"><span class="prefix">!</span><span class="text">reset camera</span></button>
-    <button class="cmd-btn" data-cmd="!grade"><span class="prefix">!</span><span class="text">grade</span></button>
-    <button class="cmd-btn" data-cmd="!andar frente"><span class="prefix">!</span><span class="text">andar frente</span></button>
+    <button class="cmd-btn" data-cmd="!seguir" data-tip="Câmera trava no Robluxo">!seguir</button>
+    <button class="cmd-btn" data-cmd="!destravar" data-tip="Solta a câmera do Robluxo">!destravar</button>
+    <button class="cmd-btn" data-cmd="!zoom" data-tip="Aproxima ou afasta a câmera">!zoom</button>
+    <button class="cmd-btn" data-cmd="!reset camera" data-tip="Reseta a câmera para posição padrão">!reset camera</button>
+    <button class="cmd-btn" data-cmd="!grade" data-tip="Liga/desliga a grade do mapa">!grade</button>
+    <button class="cmd-btn" data-cmd="!andar frente" data-tip="Anda 3 passos na direção que está olhando">!andar frente</button>
+    <button class="cmd-btn" data-cmd="!c 5,5" data-tip="Vai para a coordenada 5,5 no mapa. Use !c X,Y">!c 5,5</button>
+    <button class="cmd-btn" data-cmd="!coordenada 5 5" data-tip="Vai para coordenada. Formatos: !c 5,5 ou !coord 5.5">!coordenada X Y</button>
   </div>
 </div>
 
 <div class="section" data-category="outros">
-  <div class="section-header">
-    <div class="section-icon yellow">🎒</div>
-    <div class="section-title">Outros</div>
-    <div class="section-count" data-count="5"></div>
-  </div>
+  <div class="section-header"><div class="section-icon yellow">🎒</div><div class="section-title">Outros</div><div class="section-count"></div></div>
   <div class="cmd-grid">
-    <button class="cmd-btn" data-cmd="!inventario"><span class="prefix">!</span><span class="text">inventario</span></button>
-    <button class="cmd-btn" data-cmd="!fechar inventario"><span class="prefix">!</span><span class="text">fechar inventario</span></button>
-    <button class="cmd-btn" data-cmd="!personalizar"><span class="prefix">!</span><span class="text">personalizar</span></button>
-    <button class="cmd-btn" data-cmd="!robluxo"><span class="prefix">!</span><span class="text">robluxo</span></button>
-    <button class="cmd-btn" data-cmd="!comandos"><span class="prefix">!</span><span class="text">comandos</span></button>
+    <button class="cmd-btn" data-cmd="!inventario" data-tip="Abre o inventário (fecha em 6s)">!inventario</button>
+    <button class="cmd-btn" data-cmd="!fechar inventario" data-tip="Fecha o inventário">!fechar inventario</button>
+    <button class="cmd-btn" data-cmd="!personalizar" data-tip="Abre menu de personalização de cores">!personalizar</button>
+    <button class="cmd-btn" data-cmd="!robluxo" data-tip="Mostra a lista de comandos no chat (via bot)">!robluxo</button>
+    <button class="cmd-btn" data-cmd="!comandos" data-tip="Robluxo mostra os comandos no jogo">!comandos</button>
   </div>
 </div>
 
 </div>
 
-<div class="footer">
-  <a href="https://github.com/darcioantonio/robluxo-comandos" target="_blank">github.com/darcioantonio/robluxo-comandos</a> · sempre atualizado
-</div>
+<div class="footer"><a href="https://github.com/darcioantonio/robluxo-comandos" target="_blank">github.com/darcioantonio/robluxo-comandos</a> · sempre atualizado</div>
 </div>
 
 <script>
-const allCmds = document.querySelectorAll('.cmd-btn');
+const allBtns = document.querySelectorAll('.cmd-btn');
 const sections = document.querySelectorAll('.section');
 const noResults = document.getElementById('noResults');
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.getElementById('clearBtn');
-const totalCmd = document.getElementById('totalCmd');
-const foundCmd = document.getElementById('foundCmd');
-
-totalCmd.textContent = allCmds.length;
+document.getElementById('totalCmd').textContent = allBtns.length;
 
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
   clearBtn.style.display = q ? 'block' : 'none';
-  let found = 0;
-  let anySection = false;
-
-  sections.forEach(section => {
-    let sectionHas = false;
-    section.querySelectorAll('.cmd-btn').forEach(btn => {
-      const text = btn.querySelector('.text').textContent;
-      if (!q || text.includes(q)) {
-        btn.classList.remove('hidden');
-        found++;
-        sectionHas = true;
-      } else {
-        btn.classList.add('hidden');
-      }
+  let found = 0, any = false;
+  sections.forEach(s => {
+    let sh = false;
+    s.querySelectorAll('.cmd-btn').forEach(b => {
+      const t = b.textContent + (b.dataset.tip||'');
+      if (!q || t.toLowerCase().includes(q)) { b.classList.remove('hidden'); found++; sh = true; }
+      else b.classList.add('hidden');
     });
-    if (sectionHas) {
-      section.classList.remove('hidden');
-      anySection = true;
-    } else {
-      section.classList.add('hidden');
-    }
+    s.classList.toggle('hidden', !sh);
+    if (sh) any = true;
   });
-
-  foundCmd.textContent = found;
-  if (!anySection && q) {
-    noResults.classList.add('show');
-  } else {
-    noResults.classList.remove('show');
-  }
+  document.getElementById('foundCmd').textContent = found;
+  noResults.classList.toggle('show', !any && q);
 });
-
-clearBtn.addEventListener('click', () => {
-  searchInput.value = '';
-  searchInput.dispatchEvent(new Event('input'));
-  searchInput.focus();
-});
+clearBtn.addEventListener('click', () => { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); });
 
 document.querySelectorAll('.section-count').forEach(el => {
-  const section = el.closest('.section');
-  const count = section.querySelectorAll('.cmd-btn').length;
-  el.textContent = count + ' comandos';
+  el.textContent = el.closest('.section').querySelectorAll('.cmd-btn').length + ' comandos';
 });
 
-allCmds.forEach(btn => {
+allBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    navigator.clipboard.writeText(btn.dataset.cmd).then(() => {
+    const cmd = btn.dataset.cmd.includes(' ') ? btn.dataset.cmd.split(' ')[0] + ' ' + btn.dataset.cmd.split(' ').slice(1).join(' ') : btn.dataset.cmd;
+    navigator.clipboard.writeText(btn.dataset.cmd.replace(/ .+/, '') === '!c' ? '!c 5,5' : btn.dataset.cmd).then(() => {
       btn.classList.add('copied');
       setTimeout(() => btn.classList.remove('copied'), 600);
     });
@@ -281,8 +219,7 @@ allCmds.forEach(btn => {
 });
 
 if (window.location.hash) {
-  const q = decodeURIComponent(window.location.hash.slice(1)).toLowerCase();
-  searchInput.value = q;
+  searchInput.value = decodeURIComponent(window.location.hash.slice(1)).toLowerCase();
   searchInput.dispatchEvent(new Event('input'));
 }
 </script>
