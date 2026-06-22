@@ -3,24 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Robluxo - Comandos</title>
+<title>Robluxo - Comandos da Live</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#0a0a18,#141430,#0a0a18);color:#fff;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;padding:30px 20px}
-.container{max-width:700px;margin:0 auto}
-.header{text-align:center;margin-bottom:40px;padding:30px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;backdrop-filter:blur(10px)}
-.logo{font-size:48px;font-weight:900;background:linear-gradient(135deg,#2a9a5a,#4aee8a,#7cf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sub{color:rgba(255,255,255,0.4);font-size:14px;margin-top:6px;letter-spacing:2px;text-transform:uppercase}
-.desc{color:rgba(255,255,255,0.5);font-size:13px;margin-top:12px}
-.section{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px 24px;margin-bottom:16px;backdrop-filter:blur(8px)}
-.section-title{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.section-title .icon{font-size:22px}
+body{background:linear-gradient(160deg,#050510,#0d0d28,#0a0a18);color:#fff;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:40px 20px}
+
+.header{text-align:center;margin-bottom:30px}
+.logo{font-size:56px;font-weight:900;background:linear-gradient(135deg,#2a9a5a 0%,#4aee8a 40%,#7cf 70%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px}
+.sub{color:rgba(255,255,255,0.3);font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-top:4px}
+
+.search-wrap{position:relative;margin-bottom:30px}
+.search-wrap input{width:100%;padding:16px 20px 16px 52px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:16px;font-family:inherit;backdrop-filter:blur(10px);transition:all 0.3s}
+.search-wrap input:focus{outline:none;border-color:rgba(100,200,255,0.4);background:rgba(255,255,255,0.06);box-shadow:0 0 30px rgba(100,200,255,0.08)}
+.search-wrap input::placeholder{color:rgba(255,255,255,0.2)}
+.search-wrap .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none}
+.search-wrap .clear-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.3);font-size:18px;cursor:pointer;display:none;padding:4px 8px}
+.search-wrap .clear-btn:hover{color:#f66}
+
+.stats-bar{display:flex;gap:10px;justify-content:center;margin-bottom:30px;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);font-size:12px;color:rgba(255,255,255,0.5)}
+.stat b{color:#4aee8a}
+
+.sections{display:flex;flex-direction:column;gap:20px}
+.section{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:20px 24px;backdrop-filter:blur(8px);transition:all 0.3s}
+.section.hidden{display:none}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.section-icon.green{background:rgba(74,238,138,0.1);color:#4aee8a}
+.section-icon.orange{background:rgba(255,165,0,0.1);color:#ffa500}
+.section-icon.blue{background:rgba(100,200,255,0.1);color:#7cf}
+.section-icon.purple{background:rgba(167,139,250,0.1);color:#a78bfa}
+.section-icon.pink{background:rgba(255,100,150,0.1);color:#ff6496}
+.section-icon.yellow{background:rgba(255,215,0,0.1);color:#ffd700}
+.section-title{font-size:15px;font-weight:700;color:#fff}
+.section-count{font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto}
+
 .cmd-grid{display:flex;flex-wrap:wrap;gap:8px}
-.cmd{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.8);font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer}
-.cmd:hover{background:rgba(100,200,255,0.1);border-color:rgba(100,200,255,0.2);color:#fff;transform:translateY(-1px)}
-.cmd .prefix{color:rgba(100,200,255,0.6);font-weight:700}
-.cmd.copied{background:rgba(74,238,138,0.2);border-color:#4aee8a}
-.footer{text-align:center;color:rgba(255,255,255,0.2);font-size:11px;margin-top:30px;padding:20px}
+.cmd-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.cmd-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(100,200,255,0.1),rgba(167,139,250,0.05));opacity:0;transition:opacity 0.2s}
+.cmd-btn:hover::before{opacity:1}
+.cmd-btn:hover{border-color:rgba(100,200,255,0.2);color:#fff;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.cmd-btn:active{transform:scale(0.96)}
+.cmd-btn .prefix{color:rgba(100,200,255,0.7);font-weight:700;font-size:12px;position:relative;z-index:1}
+.cmd-btn .text{position:relative;z-index:1}
+.cmd-btn.copied{background:rgba(74,238,138,0.15)!important;border-color:#4aee8a!important;color:#4aee8a!important}
+.cmd-btn.copied .prefix{color:#4aee8a!important}
+.cmd-btn.highlight{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.08);animation:glow 1.5s ease infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.1)}50%{box-shadow:0 0 20px rgba(255,215,0,0.2)}}
+.cmd-btn.hidden{display:none}
+
+.no-results{display:none;text-align:center;padding:40px;color:rgba(255,255,255,0.2);font-size:18px}
+.no-results.show{display:block}
+.no-results .big{font-size:48px;display:block;margin-bottom:10px}
+
+.footer{text-align:center;color:rgba(255,255,255,0.1);font-size:10px;margin-top:40px;padding:20px}
+.footer a{color:rgba(255,255,255,0.2);text-decoration:none}
+.footer a:hover{color:#7cf}
+
+@media(max-width:600px){
+  .logo{font-size:36px}
+  .container{padding:20px 12px}
+  .section{padding:16px}
+  .cmd-btn{padding:7px 12px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -28,89 +74,197 @@ body{background:linear-gradient(135deg,#0a0a18,#141430,#0a0a18);color:#fff;font-
 <div class="header">
   <div class="logo">ROBLUXO</div>
   <div class="sub">Comandos da Live</div>
-  <div class="desc">Digite <b style="color:#7cf">!comando</b> no chat para controlar o personagem</div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">🌿</span> Natureza</div>
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="Buscar comandos... ex: beber, caçar, fogueira..." autocomplete="off">
+  <button class="clear-btn" id="clearBtn">✕</button>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">Total: <b id="totalCmd">0</b> comandos</div>
+  <div class="stat">Encontrados: <b id="foundCmd">0</b></div>
+</div>
+
+<div class="no-results" id="noResults">
+  <span class="big">🔍</span>
+  Nenhum comando encontrado
+</div>
+
+<div class="sections" id="sections">
+
+<div class="section" data-category="natureza">
+  <div class="section-header">
+    <div class="section-icon green">🌿</div>
+    <div class="section-title">Natureza</div>
+    <div class="section-count" data-count="6"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!beber agua"><span class="prefix">!</span>beber agua</span>
-    <span class="cmd" data-cmd="!beber"><span class="prefix">!</span>beber</span>
-    <span class="cmd" data-cmd="!cortar arvore"><span class="prefix">!</span>cortar arvore</span>
-    <span class="cmd" data-cmd="!cortar"><span class="prefix">!</span>cortar</span>
-    <span class="cmd" data-cmd="!dormir"><span class="prefix">!</span>dormir</span>
-    <span class="cmd" data-cmd="!descansar"><span class="prefix">!</span>descansar</span>
+    <button class="cmd-btn" data-cmd="!beber agua"><span class="prefix">!</span><span class="text">beber agua</span></button>
+    <button class="cmd-btn" data-cmd="!beber"><span class="prefix">!</span><span class="text">beber</span></button>
+    <button class="cmd-btn" data-cmd="!cortar arvore"><span class="prefix">!</span><span class="text">cortar arvore</span></button>
+    <button class="cmd-btn" data-cmd="!cortar"><span class="prefix">!</span><span class="text">cortar</span></button>
+    <button class="cmd-btn" data-cmd="!dormir"><span class="prefix">!</span><span class="text">dormir</span></button>
+    <button class="cmd-btn" data-cmd="!descansar"><span class="prefix">!</span><span class="text">descansar</span></button>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">🐾</span> Caça</div>
+<div class="section" data-category="caca">
+  <div class="section-header">
+    <div class="section-icon orange">🐾</div>
+    <div class="section-title">Caça</div>
+    <div class="section-count" data-count="5"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!cacar"><span class="prefix">!</span>cacar</span>
-    <span class="cmd" data-cmd="!cacar galinha"><span class="prefix">!</span>cacar galinha</span>
-    <span class="cmd" data-cmd="!cacar rato"><span class="prefix">!</span>cacar rato</span>
-    <span class="cmd" data-cmd="!cacar porco"><span class="prefix">!</span>cacar porco</span>
-    <span class="cmd" data-cmd="!cacar coelho"><span class="prefix">!</span>cacar coelho</span>
+    <button class="cmd-btn" data-cmd="!cacar"><span class="prefix">!</span><span class="text">cacar</span></button>
+    <button class="cmd-btn" data-cmd="!cacar galinha"><span class="prefix">!</span><span class="text">cacar galinha</span></button>
+    <button class="cmd-btn" data-cmd="!cacar rato"><span class="prefix">!</span><span class="text">cacar rato</span></button>
+    <button class="cmd-btn" data-cmd="!cacar porco"><span class="prefix">!</span><span class="text">cacar porco</span></button>
+    <button class="cmd-btn" data-cmd="!cacar coelho"><span class="prefix">!</span><span class="text">cacar coelho</span></button>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">🏕️</span> Sobrevivência</div>
+<div class="section" data-category="sobrevivencia">
+  <div class="section-header">
+    <div class="section-icon blue">🏕️</div>
+    <div class="section-title">Sobrevivência</div>
+    <div class="section-count" data-count="6"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!fogueira"><span class="prefix">!</span>fogueira</span>
-    <span class="cmd" data-cmd="!fazer fogueira"><span class="prefix">!</span>fazer fogueira</span>
-    <span class="cmd" data-cmd="!tocha"><span class="prefix">!</span>tocha</span>
-    <span class="cmd" data-cmd="!tocha no chao"><span class="prefix">!</span>tocha no chao</span>
-    <span class="cmd" data-cmd="!remover fogueira"><span class="prefix">!</span>remover fogueira</span>
-    <span class="cmd" data-cmd="!remover tocha"><span class="prefix">!</span>remover tocha</span>
+    <button class="cmd-btn" data-cmd="!fogueira"><span class="prefix">!</span><span class="text">fogueira</span></button>
+    <button class="cmd-btn" data-cmd="!fazer fogueira"><span class="prefix">!</span><span class="text">fazer fogueira</span></button>
+    <button class="cmd-btn" data-cmd="!tocha"><span class="prefix">!</span><span class="text">tocha</span></button>
+    <button class="cmd-btn" data-cmd="!tocha no chao"><span class="prefix">!</span><span class="text">tocha no chao</span></button>
+    <button class="cmd-btn" data-cmd="!remover fogueira"><span class="prefix">!</span><span class="text">remover fogueira</span></button>
+    <button class="cmd-btn" data-cmd="!remover tocha"><span class="prefix">!</span><span class="text">remover tocha</span></button>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">⚡</span> Ações</div>
+<div class="section" data-category="acoes">
+  <div class="section-header">
+    <div class="section-icon purple">⚡</div>
+    <div class="section-title">Ações</div>
+    <div class="section-count" data-count="5"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!dancar"><span class="prefix">!</span>dancar</span>
-    <span class="cmd" data-cmd="!pular"><span class="prefix">!</span>pular</span>
-    <span class="cmd" data-cmd="!parar"><span class="prefix">!</span>parar</span>
-    <span class="cmd" data-cmd="!mudar cor"><span class="prefix">!</span>mudar cor</span>
-    <span class="cmd" data-cmd="!trocar cor"><span class="prefix">!</span>trocar cor</span>
+    <button class="cmd-btn" data-cmd="!dancar"><span class="prefix">!</span><span class="text">dancar</span></button>
+    <button class="cmd-btn" data-cmd="!pular"><span class="prefix">!</span><span class="text">pular</span></button>
+    <button class="cmd-btn" data-cmd="!parar"><span class="prefix">!</span><span class="text">parar</span></button>
+    <button class="cmd-btn" data-cmd="!mudar cor"><span class="prefix">!</span><span class="text">mudar cor</span></button>
+    <button class="cmd-btn" data-cmd="!trocar cor"><span class="prefix">!</span><span class="text">trocar cor</span></button>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">📷</span> Câmera</div>
+<div class="section" data-category="camera">
+  <div class="section-header">
+    <div class="section-icon pink">📷</div>
+    <div class="section-title">Câmera</div>
+    <div class="section-count" data-count="6"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!seguir"><span class="prefix">!</span>seguir</span>
-    <span class="cmd" data-cmd="!destravar"><span class="prefix">!</span>destravar</span>
-    <span class="cmd" data-cmd="!zoom"><span class="prefix">!</span>zoom</span>
-    <span class="cmd" data-cmd="!reset camera"><span class="prefix">!</span>reset camera</span>
-    <span class="cmd" data-cmd="!grade"><span class="prefix">!</span>grade</span>
-    <span class="cmd" data-cmd="!andar frente"><span class="prefix">!</span>andar frente</span>
+    <button class="cmd-btn" data-cmd="!seguir"><span class="prefix">!</span><span class="text">seguir</span></button>
+    <button class="cmd-btn" data-cmd="!destravar"><span class="prefix">!</span><span class="text">destravar</span></button>
+    <button class="cmd-btn" data-cmd="!zoom"><span class="prefix">!</span><span class="text">zoom</span></button>
+    <button class="cmd-btn" data-cmd="!reset camera"><span class="prefix">!</span><span class="text">reset camera</span></button>
+    <button class="cmd-btn" data-cmd="!grade"><span class="prefix">!</span><span class="text">grade</span></button>
+    <button class="cmd-btn" data-cmd="!andar frente"><span class="prefix">!</span><span class="text">andar frente</span></button>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-title"><span class="icon">🎒</span> Outros</div>
+<div class="section" data-category="outros">
+  <div class="section-header">
+    <div class="section-icon yellow">🎒</div>
+    <div class="section-title">Outros</div>
+    <div class="section-count" data-count="5"></div>
+  </div>
   <div class="cmd-grid">
-    <span class="cmd" data-cmd="!inventario"><span class="prefix">!</span>inventario</span>
-    <span class="cmd" data-cmd="!fechar inventario"><span class="prefix">!</span>fechar inventario</span>
-    <span class="cmd" data-cmd="!personalizar"><span class="prefix">!</span>personalizar</span>
-    <span class="cmd" data-cmd="!robluxo"><span class="prefix">!</span>robluxo</span>
-    <span class="cmd" data-cmd="!comandos"><span class="prefix">!</span>comandos</span>
+    <button class="cmd-btn" data-cmd="!inventario"><span class="prefix">!</span><span class="text">inventario</span></button>
+    <button class="cmd-btn" data-cmd="!fechar inventario"><span class="prefix">!</span><span class="text">fechar inventario</span></button>
+    <button class="cmd-btn" data-cmd="!personalizar"><span class="prefix">!</span><span class="text">personalizar</span></button>
+    <button class="cmd-btn" data-cmd="!robluxo"><span class="prefix">!</span><span class="text">robluxo</span></button>
+    <button class="cmd-btn" data-cmd="!comandos"><span class="prefix">!</span><span class="text">comandos</span></button>
   </div>
 </div>
 
-<div class="footer">Comandos sempre atualizados · github.com/darcioantonio/robluxo-comandos</div>
 </div>
+
+<div class="footer">
+  <a href="https://github.com/darcioantonio/robluxo-comandos" target="_blank">github.com/darcioantonio/robluxo-comandos</a> · sempre atualizado
+</div>
+</div>
+
 <script>
-document.querySelectorAll('.cmd').forEach(el => {
-  el.addEventListener('click', () => {
-    navigator.clipboard.writeText(el.dataset.cmd).then(() => {
-      el.classList.add('copied');
-      setTimeout(() => el.classList.remove('copied'), 800);
+const allCmds = document.querySelectorAll('.cmd-btn');
+const sections = document.querySelectorAll('.section');
+const noResults = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+const totalCmd = document.getElementById('totalCmd');
+const foundCmd = document.getElementById('foundCmd');
+
+totalCmd.textContent = allCmds.length;
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  clearBtn.style.display = q ? 'block' : 'none';
+  let found = 0;
+  let anySection = false;
+
+  sections.forEach(section => {
+    let sectionHas = false;
+    section.querySelectorAll('.cmd-btn').forEach(btn => {
+      const text = btn.querySelector('.text').textContent;
+      if (!q || text.includes(q)) {
+        btn.classList.remove('hidden');
+        found++;
+        sectionHas = true;
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+    if (sectionHas) {
+      section.classList.remove('hidden');
+      anySection = true;
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+
+  foundCmd.textContent = found;
+  if (!anySection && q) {
+    noResults.classList.add('show');
+  } else {
+    noResults.classList.remove('show');
+  }
+});
+
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  searchInput.dispatchEvent(new Event('input'));
+  searchInput.focus();
+});
+
+document.querySelectorAll('.section-count').forEach(el => {
+  const section = el.closest('.section');
+  const count = section.querySelectorAll('.cmd-btn').length;
+  el.textContent = count + ' comandos';
+});
+
+allCmds.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(btn.dataset.cmd).then(() => {
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 600);
     });
   });
 });
+
+if (window.location.hash) {
+  const q = decodeURIComponent(window.location.hash.slice(1)).toLowerCase();
+  searchInput.value = q;
+  searchInput.dispatchEvent(new Event('input'));
+}
 </script>
 </body>
 </html>
